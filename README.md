@@ -24,7 +24,7 @@ Follow the prompts to generate a logo.svg file!
 Once dependencies are installed, the application can be tested with [npm test]
 
 ## Walkthrough Videos
-
+<iframe src="https://drive.google.com/file/d/1GNn6YYfhZ2PS9zRnESUm_L595_f9eUzb/preview" width="640" height="480"></iframe>
 
 ## Questions
 @fairybones

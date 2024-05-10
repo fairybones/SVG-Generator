@@ -3,7 +3,7 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 
 // Import shape class constructors
-const { Circle, Square, Triangle } = require("./lib/shapes.js");
+const { Circle, Square, Triangle } = require('./lib/shapes.js');
 
 // For user inputs to generate SVG
 const questions = [
@@ -24,40 +24,40 @@ const questions = [
         choices: [
             {
                 name: 'Circle',
-                value: 'circle'
+                value: 'circle',
             },
             {
                 name: 'Square',
-                value: 'square'
+                value: 'square',
             },
             {
                 name: 'Triangle',
-                value: 'triangle'
-            }
-        ]
+                value: 'triangle',
+            },
+        ],
     },
     {
         type: 'input',
         name: 'shapeColor',
         message: 'Enter a color keyword or hex # for the shape you selected:',
-    }
-]
+    },
+];
 
 // Create SVG class with methods for rendering
 class Svg {
     constructor() {
         // Initialize text & shape that will have color properties
-        this.textEl = ''
-        this.shapeEl = ''
+        this.textEl = '';
+        this.shapeEl = '';
     }
     setText(text, color) {
-        this.textEl = `<text x="120" y="120" font-size="60" text-anchor="middle" fill="${color}">${text}</text>`
+        this.textEl = `<text x="120" y="120" font-size="60" text-anchor="middle" fill="${color}">${text}</text>`;
     }
     setShape(shape) {
-        this.shapeEl = shape.render()
+        this.shapeEl = shape.render();
     }
     render() {
-        return `<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="300" height="200">${this.shapeEl}${this.textEl}</svg>`
+        return `<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="300" height="200">${this.shapeEl}${this.textEl}</svg>`;
     }
 }
 
@@ -68,13 +68,13 @@ async function init() {
 
     // Prompt user from command line
     const answers = await inquirer.prompt(questions);
-
+    
     // Handle text input
     let text = '';
     if (answers.text.length > 0 && answers.text.length < 4) {
         text = answers.text;
     } else {
-        console.log("Please enter no more than 3 characters");
+        console.log('Please enter no more than 3 characters');
         return;
     }
     textColor = answers.textColor;
@@ -85,20 +85,19 @@ async function init() {
 
     // Request rendering of shape selected
     let shapeEl;
-    if (user_shape === "Circle" || user_shape === "circle") {
+    if (user_shape === 'Circle' || user_shape === 'circle') {
         shapeEl = new Circle();
-    } else if (user_shape === "Square" || user_shape === "square") {
+    } else if (user_shape === 'Square' || user_shape === 'square') {
         shapeEl = new Square();
-    } else if (user_shape === "Triangle" || user_shape === "triangle") {
+    } else if (user_shape === 'Triangle' || user_shape === 'triangle') {
         shapeEl = new Triangle();
     } else {
-        console.log("Oops! Something went wrong.")
+        console.log('Oops! Something went wrong.');
     }
     shapeEl.setColor(shapeColor);
 
-    // Function to create SVG file 
+    // Function to create SVG file
     function createLogo() {
-
         fs.writeFile(fileName, svgString, (err) => {
             err ? console.error('Oops! Something went wrong.') : console.log(`Generated ${fileName}!`);
         });
